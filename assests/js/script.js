@@ -73,10 +73,10 @@ btn.addEventListener("click", (event) => {
     alert("Image URL is required");
     return;
   }
-  // if (!payload.username || !payload.textarea || !payload.img) {
-  //   alert("Please fill in all fields.");
-  //   return;
-  // }
+  if (!payload.username || !payload.textarea || !payload.img) {
+    alert("Please fill in all fields.");
+    return;
+  }
 
   fetch("https://68219a92259dad2655afc3d3.mockapi.io/Post", {
     method: "POST",
