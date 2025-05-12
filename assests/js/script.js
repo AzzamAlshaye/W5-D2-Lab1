@@ -47,52 +47,61 @@ function fetchAndDisplayProducts() {
     });
 }
 
-// 3) Submit handler
 btn.addEventListener("click", (event) => {
   event.preventDefault();
 
-  const payload = {
-    username: nameuser.value.trim(),
-    textarea: textArea.value.trim(),
-    img: userimg.value.trim(),
-  };
+  // grab & trim values
+  const username = nameuser.value.trim();
+  const textareaVal = textArea.value.trim();
+  const imgVal = userimg.value.trim();
+
   // 1) Username length
-  if (payload.username < 4) {
+  if (username.length < 4) {
     alert("Username must be >3 characters");
     return;
   }
 
   // 2) Textarea length
-  if (payload.textarea.length < 6) {
+  if (textareaVal.length < 6) {
     alert("Text must be >5 characters");
     return;
   }
 
   // 3) Image URL required
-  if (!payload.img) {
+  if (!imgVal) {
     alert("Image URL is required");
     return;
   }
-  if (!payload.username || !payload.textarea || !payload.img) {
-    alert("Please fill in all fields.");
-    return;
-  }
 
-  fetch("https://68219a92259dad2655afc3d3.mockapi.io/Post", {
-    method: "POST",
-    headers: { "Content-Type": "application/json; charset=UTF-8" },
-    body: JSON.stringify(payload),
-  })
+  fetch(
+    `https://68219a92259dad2655afc3d3.mockapi.io/Post?username=${encodeURIComponent(
+      username
+    )}`
+  )
     .then((res) => res.json())
+    .then((matches) => {
+      if (matches.length > 0) {
+        alert("Username already exists. Please choose another.");
+        return;
+      }
+      return fetch("https://68219a92259dad2655afc3d3.mockapi.io/Post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=UTF-8" },
+        body: JSON.stringify({ username, textarea: textareaVal, img: imgVal }),
+      });
+    })
+    .then((res) => {
+      if (!res) return;
+      return res.json();
+    })
     .then((newData) => {
+      if (!newData) return;
       createCard(newData);
-      // Clear the form
       nameuser.value = "";
       textArea.value = "";
       userimg.value = "";
       nameuser.focus();
     });
 });
-
 // initialize
 document.addEventListener("DOMContentLoaded", fetchAndDisplayProducts);
