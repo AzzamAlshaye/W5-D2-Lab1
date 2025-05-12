@@ -26,7 +26,7 @@ function createCard(data) {
 
   const deleteBtn = document.createElement("button");
   deleteBtn.innerText = "delete";
-  deleteBtn.classList.add("btn-main");
+  deleteBtn.classList.add("btn-delete");
   card.appendChild(deleteBtn);
 
   deleteBtn.addEventListener("click", () => {

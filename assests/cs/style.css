@@ -23,6 +23,14 @@ a {
 
 /* btns */
 .btn-main {
+  background-color: rgb(39, 60, 199);
+  color: rgb(255, 255, 255);
+  padding: 0.45rem 1.5rem 0.35rem;
+  border-radius: 0.3rem;
+  transition: background-color 0.2s;
+  border: none;
+}
+.btn-delete {
   background-color: rgb(182, 1, 1);
   color: rgb(255, 255, 255);
   padding: 0.45rem 1.5rem 0.35rem;
