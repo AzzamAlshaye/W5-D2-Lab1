@@ -56,11 +56,27 @@ btn.addEventListener("click", (event) => {
     textarea: textArea.value.trim(),
     img: userimg.value.trim(),
   };
-
-  if (!payload.username || !payload.textarea || !payload.img) {
-    alert("Please fill in all fields.");
+  // 1) Username length
+  if (payload.username < 4) {
+    alert("Username must be >3 characters");
     return;
   }
+
+  // 2) Textarea length
+  if (payload.textarea.length < 6) {
+    alert("Text must be >5 characters");
+    return;
+  }
+
+  // 3) Image URL required
+  if (!payload.img) {
+    alert("Image URL is required");
+    return;
+  }
+  // if (!payload.username || !payload.textarea || !payload.img) {
+  //   alert("Please fill in all fields.");
+  //   return;
+  // }
 
   fetch("https://68219a92259dad2655afc3d3.mockapi.io/Post", {
     method: "POST",
